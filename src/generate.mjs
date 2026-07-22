@@ -49,7 +49,7 @@ QUELLTEXT:\n${article.extract.slice(0, 16000)}`;
 }
 
 async function commonsImage(query, index, fallback, usedUrls) {
-  const params = new URLSearchParams({ action: 'query', format: 'json', origin: '*', generator: 'search', gsrsearch: query, gsrnamespace: '6', gsrlimit: '12', prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1400' });
+  const params = new URLSearchParams({ action: 'query', format: 'json', origin: '*', generator: 'search', gsrsearch: query, gsrnamespace: '6', gsrlimit: '50', prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1400' });
   const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params}`, { headers });
   if (!response.ok) return fallback;
   const files = Object.values((await response.json()).query?.pages || {}).filter(file => /\.(jpe?g|png)$/i.test(file.title) && file.imageinfo?.[0]?.thumburl && !usedUrls.has(file.imageinfo[0].thumburl));
@@ -57,6 +57,30 @@ async function commonsImage(query, index, fallback, usedUrls) {
   const file = choose(files, `${seed}-image-${index}`); const info = file.imageinfo[0];
   const author = String(info.extmetadata?.Artist?.value || 'Wikimedia Commons').replace(/<[^>]+>/g, '').slice(0, 100);
   return { url: info.thumburl, pageUrl: info.descriptionurl, author, title: file.title.replace(/^File:/, '') };
+}
+
+async function verifiedPhoto(article, index, fallback, usedUrls) {
+  const singularTitle = article.title.replace(/s$/i, '');
+  const generalQuery = category.key === 'tiere' || category.key === 'quiz' ? `${singularTitle} animal` : category.key === 'natur' ? `${article.title} nature` : category.key === 'fortschritt' ? `${article.title} environment` : article.title;
+  for (let attempt = 0; attempt < 16; attempt += 1) {
+    const query = attempt < 8 ? singularTitle : generalQuery;
+    const credit = await commonsImage(query, index + attempt * 17, attempt === 0 ? fallback : null, usedUrls);
+    if (!credit) continue;
+    usedUrls.add(credit.url);
+    try {
+      for (let downloadAttempt = 0; downloadAttempt < 3; downloadAttempt += 1) {
+        const response = await fetch(credit.url, { headers });
+        if (!response.ok) { await new Promise(resolve => setTimeout(resolve, 800 * (downloadAttempt + 1))); continue; }
+        const buffer = Buffer.from(await response.arrayBuffer());
+        const metadata = await sharp(buffer).metadata();
+        if ((metadata.width || 0) >= 300 && (metadata.height || 0) >= 250) return { credit, buffer };
+        break;
+      }
+    } catch (error) {
+      console.warn(`Bild ${attempt + 1} für Seite ${index + 1} unbrauchbar: ${error.message}`);
+    }
+  }
+  throw new Error(`Für Seite ${index + 1} konnte kein funktionsfähiges, neues Bild geladen werden`);
 }
 
 function svg(slide, pageNumber, total, hasPhoto) {
@@ -84,16 +108,10 @@ try { imageHistory = JSON.parse(await fs.readFile('data/used-images.json', 'utf8
 const attributions = []; const usedUrls = new Set(imageHistory);
 for (let index = 0; index < slides.length; index += 1) {
   const fallback = article.thumbnail?.source ? { url: article.thumbnail.source, pageUrl: article.fullurl, author: 'Wikipedia/Wikimedia Commons', title: article.title } : null;
-  let credit = await commonsImage(slides[index].imageQuery, index, fallback, usedUrls);
-  if (!credit) credit = await commonsImage(category.key === 'tiere' || category.key === 'quiz' ? 'wildlife animal' : category.key === 'natur' ? 'nature landscape' : category.key === 'fortschritt' ? 'renewable energy nature' : 'world event', index, null, usedUrls);
-  if (!credit) throw new Error(`Kein neues, noch nie verwendetes Bild für Seite ${index + 1} gefunden`);
-  let image = sharp({ create: { width: 1080, height: 1350, channels: 3, background: category.color } });
-  if (credit) {
-    const response = await fetch(credit.url, { headers });
-    if (response.ok) image = sharp(Buffer.from(await response.arrayBuffer())).resize(1080, 1350, { fit: 'cover' });
-    attributions.push(credit); usedUrls.add(credit.url);
-  }
-  await image.composite([{ input: Buffer.from(svg(slides[index], index + 1, slides.length, Boolean(credit))) }]).jpeg({ quality: 91 }).toFile(`${directory}/${index + 1}.jpg`);
+  const { credit, buffer } = await verifiedPhoto(article, index, fallback, usedUrls);
+  const image = sharp(buffer).resize(1080, 1350, { fit: 'cover' });
+  attributions.push(credit);
+  await image.composite([{ input: Buffer.from(svg(slides[index], index + 1, slides.length, true)) }]).jpeg({ quality: 91 }).toFile(`${directory}/${index + 1}.jpg`);
 }
 await fs.mkdir('data', { recursive: true });
 await fs.writeFile('data/used-images.json', JSON.stringify([...usedUrls], null, 2));
