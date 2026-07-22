@@ -20,14 +20,16 @@ test('Normale Beiträge haben mindestens vier Seiten', () => {
   const page = { title: 'Axolotl', extract: 'Der Axolotl lebt im Wasser und ist ein Schwanzlurch. Er kann verletzte Körperteile außergewöhnlich gut regenerieren. Das Tier stammt ursprünglich aus Seen in Mexiko. Sein natürlicher Lebensraum ist heute stark bedroht.' };
   const slides = buildSlides(page, { key: 'tiere', name: 'Coole Tiere' });
   assert.ok(slides.length >= 4);
+  assert.match(slides.at(-1).text, /Folge @taeglichschlauer/);
 });
 
 test('Quiz zeigt die Auflösung nicht auf der ersten Seite', () => {
   const page = { title: 'Axolotl', extract: 'Der Axolotl lebt dauerhaft im Wasser und ist ein Schwanzlurch. Er kann Körperteile außergewöhnlich gut regenerieren. Das Tier stammt ursprünglich aus Seen in Mexiko.' };
   const slides = buildSlides(page, { key: 'quiz', name: 'Quiz' });
-  assert.equal(slides.length, 4);
+  assert.equal(slides.length, 5);
   assert.doesNotMatch(slides[0].title, /Axolotl/i);
   assert.match(slides[2].title, /Axolotl/i);
+  assert.match(slides.at(-1).text, /Folge @taeglichschlauer/);
 });
 
 test('Zeit wird dem nächsten Slot zugeordnet', () => {
