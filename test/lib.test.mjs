@@ -21,6 +21,8 @@ test('Normale Beiträge haben mindestens vier Seiten', () => {
   const slides = buildSlides(page, { key: 'tiere', name: 'Coole Tiere' });
   assert.ok(slides.length >= 4);
   assert.match(slides.at(-1).text, /Folge @taeglichschlauer/);
+  assert.ok(slides.slice(1, -1).every(slide => slide.text.length <= 125));
+  assert.doesNotMatch(slides[0].title, /Axolotl/i);
 });
 
 test('Quiz zeigt die Auflösung nicht auf der ersten Seite', () => {
