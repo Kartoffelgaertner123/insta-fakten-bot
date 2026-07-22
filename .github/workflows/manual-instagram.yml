@@ -1,0 +1,34 @@
+name: Geprüften Beitrag veröffentlichen
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - manual-post.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: instagram-publishing
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_USER_ID: '17841447548310748'
+      IMAGE_COMMIT_SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: cp manual-post.json post.json
+      - run: npm test
+      - name: Auf Instagram veröffentlichen
+        run: node src/publish.mjs
