@@ -14,6 +14,7 @@ Der Instagram-Zugriffstoken liegt ausschließlich als GitHub-Secret `INSTAGRAM_A
 
 - Themen: besondere Tiere, aktuelle Ereignisse, Natur, positive Entwicklungen und Quiz
 - Faktenbasis: deutschsprachige Wikipedia
+- Textredaktion: GitHub Models kürzt die belegten Quellfakten in eine verständliche Instagram-Sprache; bei Ausfall greift eine lokale Ersatzlogik
 - Bilder: Wikimedia Commons mit Bildnachweisen im Beitragsarchiv
 - Gestaltung: 4 bis 6 Hochformatseiten pro Karussell (1080 × 1350 Pixel)
 - Quellenangabe: im Beschreibungstext jedes Beitrags
@@ -21,3 +22,5 @@ Der Instagram-Zugriffstoken liegt ausschließlich als GitHub-Secret `INSTAGRAM_A
 - Abschlussseite: Aufforderung, `@taeglichschlauer` zu folgen und den Beitrag zu teilen oder zu speichern
 
 Automatisch erzeugte Fakten sollten regelmäßig stichprobenartig kontrolliert werden. Ein Quellenlink verhindert nicht, dass ein Wikipedia-Artikel Fehler enthalten kann.
+
+GitHub Models besitzt eine kostenlose, begrenzte Nutzung. Bezahlte Nutzung wird durch diesen Bot nicht eingeschaltet. Wenn das kostenlose Limit erreicht ist, arbeitet der Bot automatisch ohne KI weiter.
