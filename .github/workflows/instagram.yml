@@ -41,11 +41,11 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
       - run: npm install
       - run: npm test
-      - name: Fakt und Bild erstellen
+      - name: Karussell mit mindestens vier Seiten erstellen
         run: node src/generate.mjs
       - name: Bild öffentlich bereitstellen
         id: image
@@ -53,7 +53,7 @@ jobs:
           git config user.name "taeglichschlauer-bot"
           git config user.email "actions@users.noreply.github.com"
           git add public post.json package-lock.json
-          git commit -m "Automatischer Faktenbeitrag $(date -u +%F)"
+          git diff --cached --quiet || git commit -m "Automatischer Karussellbeitrag $(date -u +%F)"
           git push
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Auf Instagram veröffentlichen
