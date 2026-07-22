@@ -18,5 +18,6 @@ Der Instagram-Zugriffstoken liegt ausschließlich als GitHub-Secret `INSTAGRAM_A
 - Gestaltung: 4 bis 6 Hochformatseiten pro Karussell (1080 × 1350 Pixel)
 - Quellenangabe: im Beschreibungstext jedes Beitrags
 - Quiz: Frage zuerst, Auflösung erst auf einer späteren Seite
+- Abschlussseite: Aufforderung, `@taeglichschlauer` zu folgen und den Beitrag zu teilen oder zu speichern
 
 Automatisch erzeugte Fakten sollten regelmäßig stichprobenartig kontrolliert werden. Ein Quellenlink verhindert nicht, dass ein Wikipedia-Artikel Fehler enthalten kann.
