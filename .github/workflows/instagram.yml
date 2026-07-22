@@ -13,6 +13,11 @@ on:
         description: 'Beitragsplatz 1 bis 5'
         required: false
         default: '1'
+      dry_run:
+        description: 'Nur Bild erzeugen, noch nicht auf Instagram posten'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -23,6 +28,7 @@ concurrency:
 
 jobs:
   publish:
+    if: github.event_name == 'workflow_dispatch' || vars.AUTOMATION_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -51,7 +57,7 @@ jobs:
           git push
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Auf Instagram veröffentlichen
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.dry_run != 'true'
         env:
           IMAGE_COMMIT_SHA: ${{ steps.image.outputs.sha }}
         run: node src/publish.mjs
-
