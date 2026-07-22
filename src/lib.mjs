@@ -1,11 +1,11 @@
 import crypto from 'node:crypto';
 
 export const categories = [
-  { key: 'tiere', name: 'Coole Tiere', color: '#062d3f', accent: '#65f3c1', terms: ['Axolotl', 'Blaugeringelte Kraken', 'Wombats', 'Nacktmull', 'Fangschreckenkrebse', 'Wanderfalke'] },
-  { key: 'aktuell', name: 'Gerade relevant', color: '#182052', accent: '#ffcf4a', terms: ['Fußball-Weltmeisterschaft 2026', 'Olympische Spiele', 'Weltraumforschung 2026', 'Klimaschutz aktuell'] },
-  { key: 'natur', name: 'Naturwunder', color: '#123d2b', accent: '#b9ef5b', terms: ['Biolumineszenz Natur', 'Mykorrhiza Natur', 'Mangrove Natur', 'Polarlicht Natur', 'Korallenriff Natur'] },
-  { key: 'fortschritt', name: 'Gute Nachrichten', color: '#4a214f', accent: '#ff9fd8', terms: ['Erneuerbare Energien Land', 'Wiederaufforstung Erfolg', 'Artenschutz Erfolg', 'Ozonloch Erholung', 'Energiewende Land'] },
-  { key: 'quiz', name: 'Wissens-Quiz', color: '#422006', accent: '#ffdf6c', terms: ['Tierrekord', 'Naturphänomen', 'Weltrekord Tier', 'ungewöhnliches Tier'] }
+  { key: 'tiere', name: 'Coole Tiere', color: '#062d3f', accent: '#65f3c1', terms: ['Axolotl', 'Komodowaran', 'Wombats', 'Nacktmull', 'Fangschreckenkrebse', 'Wanderfalke'] },
+  { key: 'aktuell', name: 'Gerade relevant', color: '#182052', accent: '#ffcf4a', terms: ['Fußball-Weltmeisterschaft 2026', 'Olympische Winterspiele 2026', 'Artemis-Programm', 'Expo 2025'] },
+  { key: 'natur', name: 'Naturwunder', color: '#123d2b', accent: '#b9ef5b', terms: ['Biolumineszenz', 'Mykorrhiza', 'Mangrove', 'Polarlicht', 'Korallenriff'] },
+  { key: 'fortschritt', name: 'Gute Nachrichten', color: '#4a214f', accent: '#ff9fd8', terms: ['Erneuerbare Energie', 'Wiederaufforstung', 'Artenschutz', 'Montreal-Protokoll', 'Energiewende'] },
+  { key: 'quiz', name: 'Wissens-Quiz', color: '#422006', accent: '#ffdf6c', terms: ['Axolotl', 'Blauwal', 'Kolibri', 'Polarlicht', 'Fangschreckenkrebse'] }
 ];
 
 export function deterministicNumber(input) {
@@ -32,23 +32,36 @@ export function slotFromEnvironment(now = new Date()) {
 }
 
 export function buildSlides(page, category) {
-  const facts = sentences(page.extract);
+  const facts = sentences(page.extract)
+    .filter(text => !/^(Als |Die |Der |Das ).{0,45}(bezeichnet|nennt man|ist eine Gruppe)/i.test(text))
+    .filter(text => !/\b(In:|ISBN|doi|Band \d|Typusexemplar|wurde \d{4} beschrieben)\b/i.test(text))
+    .sort((a, b) => interestingScore(b) - interestingScore(a));
   if (facts.length < 3) throw new Error('Der Quelltext enthält zu wenig verwendbare Sätze');
-  const selected = facts.slice(0, 5).map(text => shorten(text, 230));
+  const selected = facts.slice(0, 4).map(text => shorten(text, 125));
   if (category.key === 'quiz') {
     const answer = page.title;
     return [
-      { eyebrow: 'QUIZ', title: 'Was glaubst du?', text: `Welcher Begriff oder welches Lebewesen passt zu diesem Hinweis? ${selected[0]}`, imageQuery: page.title },
-      { eyebrow: 'ERST RATEN', title: 'A, B oder C?', text: `A: ${answer}\nB: Polarlicht\nC: Mammutbaum`, imageQuery: 'Fragezeichen Natur' },
+      { eyebrow: 'QUIZ', title: 'Schaffst du dieses Rätsel?', text: selected[0], imageQuery: page.title },
+      { eyebrow: 'ERST RATEN', title: 'A, B oder C?', text: `A: ${answer}\nB: Polarlicht\nC: Mammutbaum`, imageQuery: page.title },
       { eyebrow: 'DIE AUFLÖSUNG', title: answer, text: selected[1], imageQuery: page.title },
       { eyebrow: 'NOCH SCHLAUER', title: 'Darum ist das besonders', text: selected[2], imageQuery: page.title },
       { eyebrow: 'TÄGLICH NEUES WISSEN', title: 'Lust auf mehr?', text: 'Folge @taeglichschlauer und lerne jeden Tag etwas Neues. Teile das Quiz mit deinen Freunden!', imageQuery: page.title }
     ];
   }
+  const hook = category.key === 'tiere' ? 'Dieses Tier ist völlig anders' : category.key === 'fortschritt' ? 'Endlich eine gute Nachricht!' : category.key === 'aktuell' ? 'Das solltest du jetzt wissen' : 'Die Natur kann Unglaubliches';
+  const factTitles = ['Unglaublich, aber wahr', 'Das überrascht fast jeden', 'Noch verrückter', 'Ein Fakt zum Merken'];
   const slides = [
-    { eyebrow: category.name.toUpperCase(), title: page.title, text: 'Wische weiter und entdecke vier erstaunliche Fakten.', imageQuery: page.title },
-    ...selected.slice(0, Math.max(3, Math.min(4, selected.length))).map((text, index) => ({ eyebrow: `FAKT ${index + 1}`, title: index === 0 ? 'Schon gewusst?' : index === selected.length - 1 ? 'Das macht Hoffnung' : 'Noch erstaunlicher', text, imageQuery: `${page.title} ${index + 1}` })),
+    { eyebrow: category.name.toUpperCase(), title: hook, text: `${page.title}: Wisch weiter – Fakt 3 überrascht dich garantiert.`, imageQuery: page.title },
+    ...selected.map((text, index) => ({ eyebrow: `FAKT ${index + 1}`, title: factTitles[index], text, imageQuery: page.title })),
     { eyebrow: 'TÄGLICH NEUES WISSEN', title: 'Bleib neugierig!', text: 'Folge @taeglichschlauer und lerne jeden Tag etwas Neues. Speichere den Beitrag für später!', imageQuery: page.title }
   ];
   return slides.slice(0, 6);
+}
+
+function interestingScore(text) {
+  let score = 0;
+  if (/\d|Prozent|Meter|Kilometer|Jahr|Million/i.test(text)) score += 4;
+  if (/kann|schafft|überlebt|schnell|größt|kleinst|einzig|besonders|erholt|gestiegen|gesunken/i.test(text)) score += 3;
+  score -= Math.max(0, text.length - 180) / 40;
+  return score;
 }
