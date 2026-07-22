@@ -79,11 +79,14 @@ function svg(slide, pageNumber, total, hasPhoto) {
 const article = await wikipediaArticle();
 const slides = await createEngagingSlides(article);
 const directory = `public/${date}-${slot}`; await fs.mkdir(directory, { recursive: true });
-const attributions = []; const usedUrls = new Set();
+let imageHistory = [];
+try { imageHistory = JSON.parse(await fs.readFile('data/used-images.json', 'utf8')); } catch {}
+const attributions = []; const usedUrls = new Set(imageHistory);
 for (let index = 0; index < slides.length; index += 1) {
   const fallback = article.thumbnail?.source ? { url: article.thumbnail.source, pageUrl: article.fullurl, author: 'Wikipedia/Wikimedia Commons', title: article.title } : null;
   let credit = await commonsImage(slides[index].imageQuery, index, fallback, usedUrls);
   if (!credit) credit = await commonsImage(category.key === 'tiere' || category.key === 'quiz' ? 'wildlife animal' : category.key === 'natur' ? 'nature landscape' : category.key === 'fortschritt' ? 'renewable energy nature' : 'world event', index, null, usedUrls);
+  if (!credit) throw new Error(`Kein neues, noch nie verwendetes Bild für Seite ${index + 1} gefunden`);
   let image = sharp({ create: { width: 1080, height: 1350, channels: 3, background: category.color } });
   if (credit) {
     const response = await fetch(credit.url, { headers });
@@ -92,6 +95,8 @@ for (let index = 0; index < slides.length; index += 1) {
   }
   await image.composite([{ input: Buffer.from(svg(slides[index], index + 1, slides.length, Boolean(credit))) }]).jpeg({ quality: 91 }).toFile(`${directory}/${index + 1}.jpg`);
 }
+await fs.mkdir('data', { recursive: true });
+await fs.writeFile('data/used-images.json', JSON.stringify([...usedUrls], null, 2));
 const relativeImages = slides.map((_, index) => `${directory}/${index + 1}.jpg`);
 const caption = `🧠 ${article.title}\n\n${slides[1]?.text || slides[0].text}\n\n👉 Wische durch alle ${slides.length} Seiten.\n💬 Was hat dich am meisten überrascht?\n\nFaktenquelle: Wikipedia – ${article.fullurl}\nBildquellen: Wikimedia Commons (Links im Beitragsarchiv)\n\n#taeglichschlauer #wissen #fakten #${category.key} #quiz #natur`;
 await fs.writeFile('post.json', JSON.stringify({ title: article.title, category: category.name, sourceUrl: article.fullurl, caption, slides, relativeImages, imageCredits: attributions, date, slot }, null, 2));
