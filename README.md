@@ -1,6 +1,6 @@
 # TäglichSchlauer Bot
 
-Dieser Bot erstellt fünfmal täglich eine eigene Faktenkarte, nennt die verwendete Wikipedia-Seite als Quelle und veröffentlicht den Beitrag über die offizielle Instagram-API.
+Dieser Bot erstellt fünfmal täglich ein Fakten-Karussell mit mindestens vier Seiten und veröffentlicht es über die offizielle Instagram-API.
 
 ## Zeiten
 
@@ -12,9 +12,11 @@ Der Instagram-Zugriffstoken liegt ausschließlich als GitHub-Secret `INSTAGRAM_A
 
 ## Inhalt
 
+- Themen: besondere Tiere, aktuelle Ereignisse, Natur, positive Entwicklungen und Quiz
 - Faktenbasis: deutschsprachige Wikipedia
-- Gestaltung: automatisch erzeugte, eigenständige Hochformatkarte (1080 × 1350 Pixel)
+- Bilder: Wikimedia Commons mit Bildnachweisen im Beitragsarchiv
+- Gestaltung: 4 bis 6 Hochformatseiten pro Karussell (1080 × 1350 Pixel)
 - Quellenangabe: im Beschreibungstext jedes Beitrags
-- Themenrotation: Wissenschaft, Natur, Geschichte, Technik und Welt
+- Quiz: Frage zuerst, Auflösung erst auf einer späteren Seite
 
 Automatisch erzeugte Fakten sollten regelmäßig stichprobenartig kontrolliert werden. Ein Quellenlink verhindert nicht, dass ein Wikipedia-Artikel Fehler enthalten kann.
