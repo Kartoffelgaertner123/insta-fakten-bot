@@ -1,0 +1,57 @@
+name: Instagram automatisch posten
+
+on:
+  schedule:
+    - cron: '7 7 * * *'
+    - cron: '7 10 * * *'
+    - cron: '7 13 * * *'
+    - cron: '7 16 * * *'
+    - cron: '7 19 * * *'
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'Beitragsplatz 1 bis 5'
+        required: false
+        default: '1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-publishing
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_USER_ID: '17841447548310748'
+      SLOT: ${{ github.event.inputs.slot }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm install
+      - run: npm test
+      - name: Fakt und Bild erstellen
+        run: node src/generate.mjs
+      - name: Bild öffentlich bereitstellen
+        id: image
+        run: |
+          git config user.name "taeglichschlauer-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public post.json package-lock.json
+          git commit -m "Automatischer Faktenbeitrag $(date -u +%F)"
+          git push
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Auf Instagram veröffentlichen
+        env:
+          IMAGE_COMMIT_SHA: ${{ steps.image.outputs.sha }}
+        run: node src/publish.mjs
+
