@@ -41,12 +41,14 @@ export function buildSlides(page, category) {
       { eyebrow: 'QUIZ', title: 'Was glaubst du?', text: `Welcher Begriff oder welches Lebewesen passt zu diesem Hinweis? ${selected[0]}`, imageQuery: page.title },
       { eyebrow: 'ERST RATEN', title: 'A, B oder C?', text: `A: ${answer}\nB: Polarlicht\nC: Mammutbaum`, imageQuery: 'Fragezeichen Natur' },
       { eyebrow: 'DIE AUFLÖSUNG', title: answer, text: selected[1], imageQuery: page.title },
-      { eyebrow: 'NOCH SCHLAUER', title: 'Darum ist das besonders', text: selected[2], imageQuery: page.title }
+      { eyebrow: 'NOCH SCHLAUER', title: 'Darum ist das besonders', text: selected[2], imageQuery: page.title },
+      { eyebrow: 'TÄGLICH NEUES WISSEN', title: 'Lust auf mehr?', text: 'Folge @taeglichschlauer und lerne jeden Tag etwas Neues. Teile das Quiz mit deinen Freunden!', imageQuery: page.title }
     ];
   }
   const slides = [
     { eyebrow: category.name.toUpperCase(), title: page.title, text: 'Wische weiter und entdecke vier erstaunliche Fakten.', imageQuery: page.title },
-    ...selected.slice(0, Math.max(3, Math.min(5, selected.length))).map((text, index) => ({ eyebrow: `FAKT ${index + 1}`, title: index === 0 ? 'Schon gewusst?' : index === selected.length - 1 ? 'Das macht Hoffnung' : 'Noch erstaunlicher', text, imageQuery: `${page.title} ${index + 1}` }))
+    ...selected.slice(0, Math.max(3, Math.min(4, selected.length))).map((text, index) => ({ eyebrow: `FAKT ${index + 1}`, title: index === 0 ? 'Schon gewusst?' : index === selected.length - 1 ? 'Das macht Hoffnung' : 'Noch erstaunlicher', text, imageQuery: `${page.title} ${index + 1}` })),
+    { eyebrow: 'TÄGLICH NEUES WISSEN', title: 'Bleib neugierig!', text: 'Folge @taeglichschlauer und lerne jeden Tag etwas Neues. Speichere den Beitrag für später!', imageQuery: page.title }
   ];
   return slides.slice(0, 6);
 }
