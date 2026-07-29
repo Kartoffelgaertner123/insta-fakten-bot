@@ -1,14 +1,14 @@
 {
-  "title": "Die geheimsten Orte der Welt",
-  "category": "Geheimnisse",
-  "caption": "Nicht jeder geheime Ort verbirgt Aliens. Manche schützen Militärtechnik, andere Saatgut, Geschichte oder ein isoliertes Volk.\n\nWelchen Ort würdest du am liebsten von innen sehen?\n\n#geheimnisse #wissen #area51 #svalbard #geschichte",
+  "title": "Das größte ungelöste Rätsel des Internets",
+  "category": "Mystery",
+  "caption": "Cicada 3301 verband Internet-Codes mit echten Spuren rund um den Globus. Wer dahintersteckt, ist bis heute unbekannt – und Teile des Rätsels sind ungelöst.\n\n#cicada3301 #internet #rätsel #mystery #wissen",
   "relativeImages": [
-    "public/manual-geheime-orte/folie-1.jpg",
-    "public/manual-geheime-orte/folie-2.jpg",
-    "public/manual-geheime-orte/folie-3.jpg",
-    "public/manual-geheime-orte/folie-4.jpg",
-    "public/manual-geheime-orte/folie-5.jpg",
-    "public/manual-geheime-orte/folie-6.jpg"
+    "public/manual-cicada-3301/folie-1.jpg",
+    "public/manual-cicada-3301/folie-2.jpg",
+    "public/manual-cicada-3301/folie-3.jpg",
+    "public/manual-cicada-3301/folie-4.jpg",
+    "public/manual-cicada-3301/folie-5.jpg",
+    "public/manual-cicada-3301/folie-6.jpg"
   ],
   "imageCredits": [
     "KI-generiert mit ChatGPT"
