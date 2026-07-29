@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
-import { buildSlides, categories, choose, escapeXml, shorten, slotFromEnvironment, wrapText } from './lib.mjs';
+import { buildSlides, categories, choose, escapeXml, selectMusicSuggestion, shorten, slotFromEnvironment, wrapText } from './lib.mjs';
 
 const slot = slotFromEnvironment();
 const date = process.env.POST_DATE || new Date().toISOString().slice(0, 10);
@@ -127,6 +127,8 @@ for (let index = 0; index < slides.length; index += 1) {
 await fs.mkdir('data', { recursive: true });
 await fs.writeFile('data/used-images.json', JSON.stringify([...usedUrls], null, 2));
 const relativeImages = slides.map((_, index) => `${directory}/${index + 1}.jpg`);
+const musicSuggestion = selectMusicSuggestion(article.title, `${category.key} ${category.name}`);
 const caption = `🧠 ${article.title}\n\n${slides[1]?.text || slides[0].text}\n\n👉 Wische durch alle ${slides.length} Seiten.\n💬 Was hat dich am meisten überrascht?\n\nFaktenquelle: Wikipedia – ${article.fullurl}\nBildquellen: Wikimedia Commons (Links im Beitragsarchiv)\n\n#taeglichschlauer #wissen #fakten #${category.key} #quiz #natur`;
-await fs.writeFile('post.json', JSON.stringify({ title: article.title, category: category.name, sourceUrl: article.fullurl, caption, slides, relativeImages, imageCredits: attributions, date, slot }, null, 2));
+await fs.writeFile('post.json', JSON.stringify({ title: article.title, category: category.name, sourceUrl: article.fullurl, caption, slides, relativeImages, imageCredits: attributions, musicSuggestion, date, slot }, null, 2));
 console.log(`Karussell erstellt: ${relativeImages.length} Seiten – ${article.title}`);
+console.log(`Musikempfehlung: ${musicSuggestion.title} – ${musicSuggestion.artist}`);

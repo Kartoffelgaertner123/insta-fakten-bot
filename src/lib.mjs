@@ -12,6 +12,57 @@ export function deterministicNumber(input) {
   return crypto.createHash('sha256').update(input).digest().readUInt32BE(0);
 }
 export function choose(items, seed) { return items[deterministicNumber(seed) % items.length]; }
+
+const musicByCategory = {
+  tiere: [
+    { title: 'The Lion Sleeps Tonight', artist: 'The Tokens' },
+    { title: 'Animals', artist: 'Maroon 5' },
+    { title: 'Eye of the Tiger', artist: 'Survivor' }
+  ],
+  aktuell: [
+    { title: 'The Final Countdown', artist: 'Europe' },
+    { title: 'On Top of the World', artist: 'Imagine Dragons' },
+    { title: 'Hall of Fame', artist: 'The Script feat. will.i.am' }
+  ],
+  natur: [
+    { title: 'What a Wonderful World', artist: 'Louis Armstrong' },
+    { title: 'A Sky Full of Stars', artist: 'Coldplay' },
+    { title: 'Earth Song', artist: 'Michael Jackson' }
+  ],
+  fortschritt: [
+    { title: 'Good as Hell', artist: 'Lizzo' },
+    { title: 'Beautiful Day', artist: 'U2' },
+    { title: 'Here Comes the Sun', artist: 'The Beatles' }
+  ],
+  quiz: [
+    { title: 'Mission: Impossible Theme', artist: 'Lalo Schifrin' },
+    { title: 'Who Are You', artist: 'The Who' },
+    { title: 'The Riddle', artist: 'Nik Kershaw' }
+  ],
+  wissen: [
+    { title: 'Viva la Vida', artist: 'Coldplay' },
+    { title: 'Adventure of a Lifetime', artist: 'Coldplay' },
+    { title: 'Counting Stars', artist: 'OneRepublic' }
+  ]
+};
+
+export function selectMusicSuggestion(title = '', category = '') {
+  const normalized = `${title} ${category}`.toLowerCase();
+  let key = Object.keys(musicByCategory).find(categoryKey => normalized.includes(categoryKey));
+  if (/tier|animal|oktop|axolotl|wal|vogel|insekt/.test(normalized)) key = 'tiere';
+  else if (/natur|erde|planet|mond|meer|ozean|polar|wald|korall/.test(normalized)) key = 'natur';
+  else if (/quiz|rätsel|zufall|geheim|ungelöst/.test(normalized)) key = 'quiz';
+  else if (/gut|fortschritt|energie|schutz|gerettet|erfolg/.test(normalized)) key = 'fortschritt';
+  else if (/aktuell|release|film|spiel|weltmeister|olymp/.test(normalized)) key = 'aktuell';
+  key ||= 'wissen';
+  const track = choose(musicByCategory[key], `music-${title}-${category}`);
+  return {
+    ...track,
+    searchQuery: `${track.title} ${track.artist}`,
+    reason: `Automatisch passend zur Kategorie ${key} ausgewählt`,
+    attachMode: 'instagram-manual-carousel'
+  };
+}
 export function stripMarkup(text = '') {
   return text.replace(/\([^)]{0,80}\)/g, '').replace(/\[[^\]]+\]/g, '').replace(/\s+/g, ' ').replace(/\s+([,.;!?])/g, '$1').trim();
 }

@@ -20,6 +20,7 @@ Der Instagram-Zugriffstoken liegt ausschließlich als GitHub-Secret `INSTAGRAM_A
 - Quellenangabe: im Beschreibungstext jedes Beitrags
 - Quiz: Frage zuerst, Auflösung erst auf einer späteren Seite
 - Abschlussseite: Aufforderung, `@taeglichschlauer` zu folgen und den Beitrag zu teilen oder zu speichern
+- Musik: Für jeden Beitrag wird automatisch ein passender, bekannter Song vorgeschlagen und im Beitragsarchiv gespeichert. Instagram erlaubt über die offizielle API derzeit keine Musik an Bild-Karussells; der Song muss deshalb in Instagram über „Musik hinzufügen“ bestätigt werden. Vollautomatisches Anhängen ist nur bei Reels mit über die Audio API verfügbarer Musik möglich.
 
 Automatisch erzeugte Fakten sollten regelmäßig stichprobenartig kontrolliert werden. Ein Quellenlink verhindert nicht, dass ein Wikipedia-Artikel Fehler enthalten kann.
 

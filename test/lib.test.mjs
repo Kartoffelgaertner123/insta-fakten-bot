@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildSlides, choose, shorten, slotFromEnvironment, wrapText } from '../src/lib.mjs';
+import { buildSlides, choose, selectMusicSuggestion, shorten, slotFromEnvironment, wrapText } from '../src/lib.mjs';
 
 test('Auswahl ist reproduzierbar', () => {
   assert.equal(choose(['a', 'b', 'c'], 'tag-1'), choose(['a', 'b', 'c'], 'tag-1'));
@@ -37,4 +37,12 @@ test('Quiz zeigt die Auflösung nicht auf der ersten Seite', () => {
 test('Zeit wird dem nächsten Slot zugeordnet', () => {
   delete process.env.SLOT;
   assert.equal(slotFromEnvironment(new Date('2026-07-22T13:01:00Z')), 3);
+});
+
+test('Musikauswahl ist passend und reproduzierbar', () => {
+  const first = selectMusicSuggestion('Das tödlichste Tier der Welt', 'Wissen');
+  const second = selectMusicSuggestion('Das tödlichste Tier der Welt', 'Wissen');
+  assert.deepEqual(first, second);
+  assert.equal(first.attachMode, 'instagram-manual-carousel');
+  assert.match(first.searchQuery, new RegExp(first.artist.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'));
 });

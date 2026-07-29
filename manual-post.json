@@ -1,17 +1,22 @@
 {
-  "title": "Was würde passieren, wenn der Mond plötzlich verschwindet?",
-  "category": "Weltraum",
-  "caption": "Ohne Mond würde sich unser Planet dramatisch verändern. Die Folgen wären größer, als viele denken.\n\n#mond #weltraum #wissenschaft #wissen #taeglichschlauer",
+  "title": "Darum läuft Jack Sparrow an Land so komisch",
+  "category": "Film-Fakt",
+  "caption": "Warum schwankt Jack Sparrow ausgerechnet an Land so stark? Johnny Depp erklärte die Idee dahinter so: Auf dem bewegten Schiff hat Jack sichere „Seebeine“. Auf festem Boden fehlen ihm dagegen die „Landbeine“ – sein Körper rechnet weiter mit dem Schaukeln des Meeres.\n\nPassende Musik: „He's a Pirate“ von Klaus Badelt.\n\n#jacksparrow #johnnydepp #fluchderkaribik #filmfakten #wissen #taeglichschlauer",
   "relativeImages": [
-    "public/manual-10-mond-verschwindet/folie-1.jpg",
-    "public/manual-10-mond-verschwindet/folie-2.jpg",
-    "public/manual-10-mond-verschwindet/folie-3.jpg",
-    "public/manual-10-mond-verschwindet/folie-4.jpg",
-    "public/manual-10-mond-verschwindet/folie-5.jpg",
-    "public/manual-10-mond-verschwindet/folie-6.jpg"
+    "public/manual-jack-sparrow-test/folie-1.jpg",
+    "public/manual-jack-sparrow-test/folie-2.jpg",
+    "public/manual-jack-sparrow-test/folie-3.jpg",
+    "public/manual-jack-sparrow-test/folie-4.jpg",
+    "public/manual-jack-sparrow-test/folie-5.jpg",
+    "public/manual-jack-sparrow-test/folie-6.jpg"
   ],
   "imageCredits": [
     "KI-generiert mit ChatGPT"
   ],
+  "musicSuggestion": {
+    "title": "He's a Pirate",
+    "artist": "Klaus Badelt",
+    "searchQuery": "He's a Pirate Klaus Badelt"
+  },
   "date": "2026-07-29"
 }
