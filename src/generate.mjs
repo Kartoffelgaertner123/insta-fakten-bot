@@ -84,18 +84,29 @@ async function verifiedPhoto(article, index, fallback, usedUrls) {
 }
 
 function svg(slide, pageNumber, total, hasPhoto) {
-  const titleLines = wrapText(slide.title, 22).slice(0, 3); const textLines = wrapText(slide.text, 38).slice(0, 8);
-  const titleSize = titleLines.length > 2 ? 67 : 76;
-  const title = titleLines.map((line, i) => `<tspan x="74" dy="${i ? titleSize * 1.06 : 0}">${escapeXml(line)}</tspan>`).join('');
-  const textY = 735 + (titleLines.length - 1) * 62;
-  const body = textLines.map((line, i) => `<tspan x="74" dy="${i ? 53 : 0}">${escapeXml(line)}</tspan>`).join('');
+  const titleLines = wrapText(slide.title, 20).slice(0, 3);
+  const textLines = wrapText(slide.text, 32).slice(0, 4);
+  const titleSize = titleLines.length > 2 ? 82 : titleLines.length > 1 ? 91 : 102;
+  const bodySize = textLines.length > 3 ? 45 : 50;
+  const titleLineHeight = Math.round(titleSize * 1.04);
+  const bodyLineHeight = Math.round(bodySize * 1.12);
+  const titleHeight = titleLines.length * titleLineHeight;
+  const bodyHeight = textLines.length * bodyLineHeight;
+  const contentHeight = titleHeight + bodyHeight + 66;
+  const contentTop = Math.max(590, 1190 - contentHeight);
+  const eyebrowY = contentTop - 52;
+  const titleY = contentTop + titleSize;
+  const bodyY = contentTop + titleHeight + 55 + bodySize;
+  const title = titleLines.map((line, i) => `<tspan x="540" dy="${i ? titleLineHeight : 0}">${escapeXml(line)}</tspan>`).join('');
+  const body = textLines.map((line, i) => `<tspan x="540" dy="${i ? bodyLineHeight : 0}">${escapeXml(line)}</tspan>`).join('');
   return `<svg width="1080" height="1350" xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="${hasPhoto ? '.15' : '0'}"/><stop offset=".42" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="${category.color}" stop-opacity=".98"/></linearGradient></defs>
+    <defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="${hasPhoto ? '.12' : '0'}"/><stop offset=".42" stop-color="#000" stop-opacity=".18"/><stop offset=".72" stop-color="#000" stop-opacity=".72"/><stop offset="1" stop-color="#000" stop-opacity=".96"/></linearGradient></defs>
     <rect width="1080" height="1350" fill="${category.color}" opacity="${hasPhoto ? '.18' : '1'}"/><rect width="1080" height="1350" fill="url(#shade)"/>
-    <rect x="58" y="55" width="388" height="66" rx="33" fill="${category.accent}"/><text x="252" y="99" text-anchor="middle" font-family="Arial" font-size="28" font-weight="800" fill="#101828" letter-spacing="2">TÄGLICH SCHLAUER</text>
-    <text x="74" y="510" font-family="Arial" font-size="28" font-weight="800" fill="${category.accent}" letter-spacing="3">${escapeXml(slide.eyebrow)}</text>
-    <text x="74" y="610" font-family="Arial" font-size="${titleSize}" font-weight="800" fill="#fff">${title}</text>
-    <rect x="74" y="${textY - 62}" width="190" height="8" rx="4" fill="${category.accent}"/><text x="74" y="${textY}" font-family="Arial" font-size="40" font-weight="600" fill="#fff">${body}</text>
+    <text x="58" y="76" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="800" fill="#fff" letter-spacing=".8">taeglichschlauer</text>
+    <circle cx="1002" cy="66" r="31" fill="#000" fill-opacity=".55"/><text x="1002" y="75" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#fff">${pageNumber}/${total}</text>
+    <text x="540" y="${eyebrowY}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="800" fill="${category.accent}" letter-spacing="3">${escapeXml(slide.eyebrow)}</text>
+    <text x="540" y="${titleY}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${titleSize}" font-weight="900" fill="#fff">${title}</text>
+    <text x="540" y="${bodyY}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${bodySize}" font-weight="700" fill="#fff">${body}</text>
     <text x="74" y="1270" font-family="Arial" font-size="27" font-weight="700" fill="${category.accent}">WISCHEN →</text><text x="1000" y="1270" text-anchor="end" font-family="Arial" font-size="27" fill="#fff">${pageNumber}/${total}</text>
   </svg>`;
 }
