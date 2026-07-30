@@ -1,27 +1,27 @@
 {
-  "title": "Historische Fotos, die unecht aussehen – aber echt sind",
+  "title": "6 Fotos, als Geschichte geschrieben wurde",
   "category": "Geschichte",
-  "caption": "Keine Fotomontagen: Diese sechs Archivbilder zeigen, wie unwirklich die Vergangenheit manchmal aussah – vom Mittagessen hoch über New York bis zum Kopf der Freiheitsstatue mitten in Paris.\n\nBildquellen: Wikimedia Commons; Einzelnachweise in den Bildnachweisen.\nPassende Musik: „Experience“ von Ludovico Einaudi.\n\n#historischefotos #geschichte #damals #archivbilder #wissen #fakten #taeglichschlauer",
+  "caption": "Manche Kameras waren genau im richtigen Moment bereit: der erste Motorflug, die Titanic vor ihrer einzigen Reise, Apollo 11 beim Training und weitere Augenblicke, die heute Geschichte sind.\n\nBildquellen: Wikimedia Commons, NASA, Bundesarchiv und Library of Congress; Einzelnachweise in den Bildnachweisen.\nPassende Musik: „Outro“ von M83.\n\n#geschichte #historischefotos #zeitgeschichte #archivbilder #wissen #fakten #taeglichschlauer",
   "relativeImages": [
-    "public/manual-historische-fotos-echt/folie-1.jpg",
-    "public/manual-historische-fotos-echt/folie-2.jpg",
-    "public/manual-historische-fotos-echt/folie-3.jpg",
-    "public/manual-historische-fotos-echt/folie-4.jpg",
-    "public/manual-historische-fotos-echt/folie-5.jpg",
-    "public/manual-historische-fotos-echt/folie-6.jpg"
+    "public/manual-geschichte-im-richtigen-moment/folie-1.jpg",
+    "public/manual-geschichte-im-richtigen-moment/folie-2.jpg",
+    "public/manual-geschichte-im-richtigen-moment/folie-3.jpg",
+    "public/manual-geschichte-im-richtigen-moment/folie-4.jpg",
+    "public/manual-geschichte-im-richtigen-moment/folie-5.jpg",
+    "public/manual-geschichte-im-richtigen-moment/folie-6.jpg"
   ],
   "imageCredits": [
-    "Lunch atop a Skyscraper – Wikimedia Commons, gemeinfrei",
-    "Head of the Statue of Liberty on display in Paris – Library of Congress/Wikimedia Commons, gemeinfrei",
-    "Louis-Émile Durandelle: Eiffel Tower construction, 1888 – Wikimedia Commons, gemeinfrei",
-    "Mount Rushmore Under Construction – National Park Service/Wikimedia Commons, gemeinfrei",
-    "Brooklyn Bridge Under Construction, 1878 – Wikimedia Commons, gemeinfrei",
-    "Construction of Panama Canal, ca. 1913 – Isthmian Historical Society/Wikimedia Commons, gemeinfrei"
+    "First flight3 – John T. Daniels/Library of Congress/Wikimedia Commons, gemeinfrei",
+    "RMS Titanic in Southampton, 9 April 1912 – Wikimedia Commons, gemeinfrei",
+    "Apollo 11 Crew During Training Exercise – NASA/Wikimedia Commons, gemeinfrei",
+    "Berlin, Mauerbau, Brandenburger Tor – Bundesarchiv Bild 183-85458-0002, CC BY-SA 3.0",
+    "Hindenburg over New York 1937 – Wikimedia Commons, gemeinfrei",
+    "Panorama from Lawrence Captive Airship, San Francisco 1906 – Library of Congress/Wikimedia Commons, gemeinfrei"
   ],
   "musicSuggestion": {
-    "title": "Experience",
-    "artist": "Ludovico Einaudi",
-    "searchQuery": "Experience Ludovico Einaudi"
+    "title": "Outro",
+    "artist": "M83",
+    "searchQuery": "Outro M83"
   },
   "date": "2026-07-30"
 }
