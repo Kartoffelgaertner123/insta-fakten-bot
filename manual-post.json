@@ -1,22 +1,27 @@
 {
-  "title": "Warum wir uns an manche Träume erinnern und andere sofort vergessen",
-  "category": "Psychologie",
-  "caption": "Warum ist ein Traum beim Aufwachen noch glasklar – und wenige Sekunden später verschwunden? Der Zeitpunkt des Aufwachens, die Aktivierung des Gehirns und neue Eindrücke spielen dabei eine wichtige Rolle. Tipp: kurz still liegen, den Traum rückwärts durchgehen und sofort notieren.\n\nPassende Musik: „Daydream“ von The Lovin’ Spoonful.\n\n#träume #schlaf #gehirn #psychologie #wissenschaft #wissen #taeglichschlauer",
+  "title": "Historische Fotos, die unecht aussehen – aber echt sind",
+  "category": "Geschichte",
+  "caption": "Keine Fotomontagen: Diese sechs Archivbilder zeigen, wie unwirklich die Vergangenheit manchmal aussah – vom Mittagessen hoch über New York bis zum Kopf der Freiheitsstatue mitten in Paris.\n\nBildquellen: Wikimedia Commons; Einzelnachweise in den Bildnachweisen.\nPassende Musik: „Experience“ von Ludovico Einaudi.\n\n#historischefotos #geschichte #damals #archivbilder #wissen #fakten #taeglichschlauer",
   "relativeImages": [
-    "public/manual-traeume-erinnern/folie-1.jpg",
-    "public/manual-traeume-erinnern/folie-2.jpg",
-    "public/manual-traeume-erinnern/folie-3.jpg",
-    "public/manual-traeume-erinnern/folie-4.jpg",
-    "public/manual-traeume-erinnern/folie-5.jpg",
-    "public/manual-traeume-erinnern/folie-6.jpg"
+    "public/manual-historische-fotos-echt/folie-1.jpg",
+    "public/manual-historische-fotos-echt/folie-2.jpg",
+    "public/manual-historische-fotos-echt/folie-3.jpg",
+    "public/manual-historische-fotos-echt/folie-4.jpg",
+    "public/manual-historische-fotos-echt/folie-5.jpg",
+    "public/manual-historische-fotos-echt/folie-6.jpg"
   ],
   "imageCredits": [
-    "KI-generiert mit ChatGPT"
+    "Lunch atop a Skyscraper – Wikimedia Commons, gemeinfrei",
+    "Head of the Statue of Liberty on display in Paris – Library of Congress/Wikimedia Commons, gemeinfrei",
+    "Louis-Émile Durandelle: Eiffel Tower construction, 1888 – Wikimedia Commons, gemeinfrei",
+    "Mount Rushmore Under Construction – National Park Service/Wikimedia Commons, gemeinfrei",
+    "Brooklyn Bridge Under Construction, 1878 – Wikimedia Commons, gemeinfrei",
+    "Construction of Panama Canal, ca. 1913 – Isthmian Historical Society/Wikimedia Commons, gemeinfrei"
   ],
   "musicSuggestion": {
-    "title": "Daydream",
-    "artist": "The Lovin’ Spoonful",
-    "searchQuery": "Daydream The Lovin Spoonful"
+    "title": "Experience",
+    "artist": "Ludovico Einaudi",
+    "searchQuery": "Experience Ludovico Einaudi"
   },
   "date": "2026-07-30"
 }
