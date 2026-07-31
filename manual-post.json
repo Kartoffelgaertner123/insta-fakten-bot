@@ -1,14 +1,14 @@
 {
-  "title": "Quiz: Welcher Planet hat den längsten Tag?",
+  "title": "Quiz: Welches Tier hat drei Herzen?",
   "category": "Quiz",
-  "caption": "🪐 QUIZ: Welcher Planet hat den längsten Tag?\n\nA) Merkur\nB) Venus\nC) Mars\nD) Jupiter\n\n👉 Erst tippen, dann durchwischen!\n\nDie Auflösung: Venus. Eine Drehung um die eigene Achse dauert dort rund 243 Erdtage – ein Umlauf um die Sonne nur rund 225 Erdtage.\n\nBildmotive: KI-generiert.\nFaktenquelle: NASA – Venus Facts.\nPassende Musik: „The Final Countdown“ von Europe.\n\n#quiz #weltraum #venus #planeten #astronomie #wissen #fakten #taeglichschlauer",
+  "caption": "🐙 QUIZ: Welches Tier hat drei Herzen?\n\nA) Hai\nB) Delfin\nC) Oktopus\nD) Schildkröte\n\n👉 Erst tippen, dann durchwischen!\n\nDie Auflösung: der Oktopus. Zwei Herzen pumpen Blut zu den Kiemen, das dritte versorgt den restlichen Körper.\n\nBildmotive: KI-generiert.\nFaktenquelle: Smithsonian Ocean – Cephalopods.\nPassende Musik: „Under the Sea“ von Samuel E. Wright.\n\n#quiz #oktopus #meer #tiere #tierwissen #wissen #fakten #taeglichschlauer",
   "relativeImages": [
-    "public/manual-quiz-venus/folie-1.jpg",
-    "public/manual-quiz-venus/folie-2.jpg",
-    "public/manual-quiz-venus/folie-3.jpg",
-    "public/manual-quiz-venus/folie-4.jpg",
-    "public/manual-quiz-venus/folie-5.jpg",
-    "public/manual-quiz-venus/folie-6.jpg"
+    "public/manual-quiz-oktopus/folie-1.jpg",
+    "public/manual-quiz-oktopus/folie-2.jpg",
+    "public/manual-quiz-oktopus/folie-3.jpg",
+    "public/manual-quiz-oktopus/folie-4.jpg",
+    "public/manual-quiz-oktopus/folie-5.jpg",
+    "public/manual-quiz-oktopus/folie-6.jpg"
   ],
   "imageCredits": [
     "Folie 1: KI-generiertes Motiv",
@@ -19,9 +19,9 @@
     "Folie 6: KI-generiertes Motiv"
   ],
   "musicSuggestion": {
-    "title": "The Final Countdown",
-    "artist": "Europe",
-    "searchQuery": "The Final Countdown Europe"
+    "title": "Under the Sea",
+    "artist": "Samuel E. Wright",
+    "searchQuery": "Under the Sea Samuel E Wright"
   },
   "date": "2026-07-31"
 }
